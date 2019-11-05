@@ -10,56 +10,65 @@
 #
 # cual es el numero primo mas cercano a 600851475143
 
-
-def is_prime(num):
-
-    divisors = []
-
-    for i in range(1, num + 1):
-        div = num / i
-
-        if div.is_integer():
-            div = int(div)
-
-        if isinstance(div, int):
-            divisors.append(i)
-
-    if(len(divisors) == 2):
-        return True
-    else:
-        return False
+import os.path as path
 
 
-def create_primes_array(max_prime):
-    primes = []
-    for i in range(1, max_prime):
-        if is_prime(i):
-            primes.append(i)
-    return primes
+class Prime():
+    def __init__(self, primes_txt):
+        self.primes_txt = primes_txt
+        self.get_primes_txt()
 
+    def is_prime(self, num):
 
-# Write txt with primes
-def write_primes_txt(max_prime):
-    f = open('utils/primes_array.txt', 'w')
-    primes_array = create_primes_array(max_prime)
-    primes_array = ",".join(str(int_) for int_ in primes_array)
-    if f.write(primes_array):
-        return True
+        divisors = []
 
+        for i in range(1, num + 1):
+            div = num / i
 
-def get_primes_txt():
-    # Read txt
-    f = open('utils/primes_array.txt')
-    primes_array = f.read()
+            if(isinstance(div, float)):
+                if div.is_integer():
+                    div = int(div)
 
-    # Seaparate all element with ,
-    primes_array = primes_array.split(',')
+            if isinstance(div, int):
+                divisors.append(i)
 
-    # Convert all elements to integer
-    for i in range(0, len(primes_array)):
-        primes_array[i] = int(primes_array[i])
+        if(len(divisors) == 2):
+            return True
+        else:
+            return False
 
-    return primes_array
+    def create_primes_array(self, max_prime):
+        primes = []
+        for i in range(1, max_prime):
+            if self.is_prime(i):
+                primes.append(i)
+        return primes
+
+    # Write txt with primes
+
+    def write_primes_txt(self, max_prime):
+        f = open(self.primes_txt, 'w')
+        primes_array = self.create_primes_array(max_prime)
+        primes_array = ",".join(str(int_) for int_ in primes_array)
+        if f.write(primes_array):
+            return True
+
+    def get_primes_txt(self):
+        # Read txt
+        if(path.exists(self.primes_txt)):
+            f = open(self.primes_txt)
+            primes_array = f.read()
+
+            # Seaparate all element with ,
+            primes_array = primes_array.split(',')
+
+            # Convert all elements to integer
+            for i in range(0, len(primes_array)):
+                primes_array[i] = int(primes_array[i])
+
+            return primes_array
+        else:
+            self.write_primes_txt(10000)
 
 
 def get_first_factor(num, primes):
@@ -73,7 +82,8 @@ def get_first_factor(num, primes):
     return primes[counter]
 
 
-primes_array = get_primes_txt()
+primes = Prime('utils/primes_array.txt')
+primes_array = primes.get_primes_txt()
 
 bucle = True
 num = 600851475143
