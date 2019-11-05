@@ -1,1 +1,0 @@
-## Cambio de base para un vector
