@@ -22,14 +22,13 @@ class Primes():
         validamos cierta cantidad de numeros primos.
     """
 
-    def __init__(self, primes_txt):
+    def __init__(self):
         """
         Se obtiene el nombre del archivo en donde se quieren generar u
         obtener los numeros primos
         """
 
-        self.primes_txt = primes_txt
-        self.get_primes_txt()
+        self.max_prime = 30000
 
     def is_prime(self, num):
         """
@@ -84,7 +83,7 @@ class Primes():
         if f.write(primes_array):
             return True
 
-    def get_primes_txt(self):
+    def get_primes_txt(self, txt):
         """
         Obtencion de archivo con primos 
 
@@ -93,6 +92,8 @@ class Primes():
 
         Abre el archivo y lo convierte en una lista de enteros
         """
+
+        self.primes_txt = txt
 
         if(path.exists(self.primes_txt)):
             f = open(self.primes_txt)
@@ -107,4 +108,4 @@ class Primes():
 
             return primes_array
         else:
-            self.write_primes_txt(10000)
+            self.write_primes_txt(self.max_prime)

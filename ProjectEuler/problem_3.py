@@ -23,8 +23,8 @@ def get_first_factor(num, primes):
     return primes[counter]
 
 
-primes = Primes('utils/primes_array.txt')
-primes_array = primes.get_primes_txt()
+primes = Primes()
+primes_array = primes.get_primes_txt('utils/primes_array.txt')
 
 bucle = True
 num = 13195
